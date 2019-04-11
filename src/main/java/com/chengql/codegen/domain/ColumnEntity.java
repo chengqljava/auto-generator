@@ -1,4 +1,4 @@
-package com.wlgroup.codegen.domain;
+package com.chengql.codegen.domain;
 
 public class ColumnEntity {
 

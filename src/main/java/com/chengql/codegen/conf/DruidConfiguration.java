@@ -1,34 +1,17 @@
 package com.chengql.codegen.conf;
 
-import java.sql.SQLException;
-
-import javax.sql.DataSource;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.support.http.StatViewServlet;
-import com.alibaba.druid.support.http.WebStatFilter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 
-
-
-
+import javax.sql.DataSource;
+import java.sql.SQLException;
 
 @Configuration
-@ConditionalOnClass()
-@ConditionalOnProperty(name = "spring.datasource.type", havingValue = "com.alibaba.druid.pool.DruidDataSource", matchIfMissing = true)
-public class DruidConfig {
-
-    private Logger  logger = LoggerFactory.getLogger(DruidConfig.class);
+public class DruidConfiguration {
     @Value("${spring.datasource.url}")
     private String url;
 
@@ -109,14 +92,14 @@ public class DruidConfig {
         try {
             datasource.setFilters(filters);
         } catch (SQLException e) {
-        	logger.error(e.getMessage());
+
         }
         datasource.setConnectionProperties(connectionProperties);
 
         return datasource;
     }
 
-    @Bean
+  /*  @Bean
     public ServletRegistrationBean<StatViewServlet> statViewServlet(){
         ServletRegistrationBean<StatViewServlet> servletRegistrationBean = new ServletRegistrationBean<StatViewServlet>(new StatViewServlet(),"/druid/*");
         servletRegistrationBean.addInitParameter("allow","127.0.0.1");  //设置ip白名单
@@ -138,7 +121,6 @@ public class DruidConfig {
         //忽略过滤的形式
         filterRegistrationBean.addInitParameter("exclusions","*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
         return filterRegistrationBean;
-    }
-
+    }*/
    
 }

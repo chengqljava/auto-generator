@@ -21,7 +21,7 @@ public class GenTest {
     @Test
     public void testGen() throws Exception {
 
-        codeGenService.generatorCode();
+        codeGenService.generatorCode("meter");
     }
 
 }
