@@ -1,0 +1,25 @@
+package ${package}.domain;
+
+import com.wlgroup.core.domain.BasePageQuery;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+public class ${className}Query extends BasePageQuery {
+
+	private static final long serialVersionUID = 1L;
+	
+}

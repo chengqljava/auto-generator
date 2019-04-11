@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="${package}.repository.${className}Dao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="${package}.domain.${className}DO" id="${classname}Map">
+#foreach($column in $columns)
+        <result property="${column.attrname}" column="${column.columnName}"/>
+#end
+    </resultMap>
+
+	<select id="get" resultMap="${classname}Map">
+		SELECT 
+			* 
+		FROM 
+			${tableName} 
+		WHERE 
+			${pk.columnName} = #{id}
+	</select>
+
+	<select id="list" resultMap="${classname}Map">
+		SELECT 
+			* 
+		FROM 
+			${tableName}
+		<choose>
+            <when test="orders != null">
+            	ORDER BY 
+            	<foreach collection="orders" item="item"  open=" " separator="," close=" ">  
+			    	${item.property} ${item.direction}  
+			    </foreach>  
+            </when>
+			<otherwise>
+                ORDER BY ${pk.columnName} ASC
+			</otherwise>
+        </choose>
+	</select>
+	
+	<insert id="save" parameterType="${package}.domain.${className}DO"#if($pk.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$pk.attrname"#end>
+		INSERT INTO ${tableName}
+		(
+#foreach($column in $columns)
+#if($column.columnName != $pk.columnName || $pk.extra != 'auto_increment')
+			`$column.columnName`#if($velocityCount != $columns.size()), #end
+
+#end			
+#end
+		)
+		VALUES
+		(
+#foreach($column in $columns)
+#if($column.columnName != $pk.columnName || $pk.extra != 'auto_increment')
+			#{$column.attrname}#if($velocityCount != $columns.size()), #end
+
+#end			
+#end
+		)
+	</insert>
+	 
+	<update id="update" parameterType="${package}.domain.${className}DO">
+		UPDATE ${tableName} 
+		<set>
+#foreach($column in $columns)
+#if($column.columnName != $pk.columnName)
+			<if test="$column.attrname != null">`$column.columnName` = #{$column.attrname}#if($velocityCount != $columns.size()), #end</if>
+#end
+#end
+		</set>
+		WHERE ${pk.columnName} = #{${pk.attrname}}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM 
+			${tableName} 
+		WHERE 
+			${pk.columnName} = #{id}
+	</delete>
+	
+</mapper>
