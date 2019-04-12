@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chengql.codegen.repository.CodeGenDaoMapper">
+<mapper namespace="com.hwsafe.codegen.repository.CodeGenDao">
 
 	<select id="queryTable" resultType="map">
 		select
@@ -11,8 +11,7 @@
 		from
 		information_schema.tables
 		where
-		table_schema = (select database()) and
-		table_name = #{tableName}
+		table_schema = (select database()) and table_name = #{tableName}
 	</select>
 
 	<select id="queryColumns" resultType="map">
@@ -21,18 +20,15 @@
 		columnName,
 		data_type dataType,
 		column_comment columnComment,
-		column_key
-		columnKey,
+		column_key columnKey,
 		extra
 		from
 		information_schema.columns
 		where
-		table_name =
-		#{tableName}
+		table_name = #{tableName}
 		and table_schema = (select database())
 		order by
 		ordinal_position
 	</select>
-
 
 </mapper>

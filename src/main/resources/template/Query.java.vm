@@ -1,6 +1,7 @@
 package ${package}.domain;
 
-import com.wlgroup.core.domain.BasePageQuery;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class ${className}Query extends BasePageQuery {
+public class ${className}Query extends Page {
 
 	private static final long serialVersionUID = 1L;
 	

@@ -1,14 +1,13 @@
-package com.chengql.codegen;
+package com.hwsafe.codegen;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-import com.chengql.codegen.conf.GenProperties;
+
+
 
 @Configuration
-@EnableConfigurationProperties(GenProperties.class)
 @SpringBootApplication
 public class Application {
 

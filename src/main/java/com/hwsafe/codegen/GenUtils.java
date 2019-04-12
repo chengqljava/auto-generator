@@ -1,4 +1,4 @@
-package com.chengql.codegen;
+package com.hwsafe.codegen;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,8 +20,8 @@ import org.springside.modules.utils.io.FileUtil;
 import org.springside.modules.utils.io.IOUtil;
 import org.springside.modules.utils.time.DateFormatUtil;
 
-import com.chengql.codegen.domain.ColumnEntity;
-import com.chengql.codegen.domain.TableEntity;
+import com.hwsafe.codegen.domain.ColumnEntity;
+import com.hwsafe.codegen.domain.TableEntity;
 
 
 
@@ -29,16 +29,17 @@ public class GenUtils {
 
     public static List<String> getTemplates() {
         List<String> templates = new ArrayList<String>();
-        templates.add("template/DO.java.vm");
+        templates.add("template/Entity.java.vm");
+       // templates.add("template/DO.java.vm");
         templates.add("template/DTO.java.vm");
         templates.add("template/Query.java.vm");
-        templates.add("template/Dao.java.vm");
-        templates.add("template/Dao.xml.vm");
+        templates.add("template/Mapper.java.vm");
+        templates.add("template/Mapper.xml.vm");
         templates.add("template/Service.java.vm");
         templates.add("template/Controller.java.vm");
-        templates.add("template/vue/list.vue.vm");
-        templates.add("template/vue/add.vue.vm");
-        templates.add("template/vue/edit.vue.vm");
+       // templates.add("template/vue/list.vue.vm");
+        //templates.add("template/vue/add.vue.vm");
+       // templates.add("template/vue/edit.vue.vm");
         return templates;
     }
 
@@ -67,8 +68,8 @@ public class GenUtils {
 
             //列名转换成Java属性名
             String attrName = columnToJava(columnEntity.getColumnName());
-            columnEntity.setAttrName(attrName);
-            columnEntity.setAttrname(StringUtils.uncapitalize(attrName));
+            columnEntity.setAttrNameUpper(attrName);
+            columnEntity.setAttrNameLower(StringUtils.uncapitalize(attrName));
 
             //列的数据类型，转换成Java类型
             String attrType = PropertiesUtil.getString(config, columnEntity.getDataType(),
@@ -121,7 +122,7 @@ public class GenUtils {
 
             try {
                 String fname = getFileName(template, tableEntity.getClassName(),
-                    PropertiesUtil.getString(config, "package", "com.wlgroup"));
+                    PropertiesUtil.getString(config, "package", "com.hwsafe"));
                 FileUtil.makesureParentDirExists(new File(fname));
                 IOUtil.write(sw.toString(), FileUtil.asOututStream(fname));
             } catch (IOException e) {
@@ -156,14 +157,22 @@ public class GenUtils {
 
     public static String getFileName(String template, String className,
                                      String packageName) throws IOException {
-
+    	 Properties config = getConfig();
         String packagePath = System.getProperty("user.dir") + "/gened/";
+        if(StringUtils.isNotBlank(config.getProperty("pathRoot"))) {
+        	packagePath = config.getProperty("pathRoot");
+        }else {
+        	packagePath = System.getProperty("user.dir") + "/gened/";
+        }
         if (StringUtils.isNotBlank(packageName)) {
             packagePath += packageName.replace(".", File.separator) + File.separator;
         }
 
         if (template.contains("DO.java.vm")) {
             return packagePath + "domain" + File.separator + className + "DO.java";
+        }
+        if (template.contains("Entity.java.vm")) {
+            return packagePath + "domain" + File.separator + className + ".java";
         }
 
         if (template.contains("DTO.java.vm")) {
@@ -174,12 +183,12 @@ public class GenUtils {
             return packagePath + "domain" + File.separator + className + "Query.java";
         }
 
-        if (template.contains("Dao.java.vm")) {
-            return packagePath + "repository" + File.separator + className + "Dao.java";
+        if (template.contains("Mapper.java.vm")) {
+            return packagePath + "mapper" + File.separator + className + "Mapper.java";
         }
 
-        if (template.contains("Dao.xml.vm")) {
-            return packagePath + "repository" + File.separator + className + "Dao.xml";
+        if (template.contains("Mapper.xml.vm")) {
+            return packagePath + "mapper" + File.separator + className + "Mapper.xml";
         }
 
         if (template.contains("Service.java.vm")) {

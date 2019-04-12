@@ -1,4 +1,4 @@
-package com.chengql.codegen;
+package com.hwsafe.codegen;
 
 import java.io.Serializable;
 

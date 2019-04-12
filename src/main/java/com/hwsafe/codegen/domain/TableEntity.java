@@ -1,4 +1,4 @@
-package com.chengql.codegen.domain;
+package com.hwsafe.codegen.domain;
 
 import java.util.List;
 

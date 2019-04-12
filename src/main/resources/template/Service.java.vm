@@ -5,47 +5,40 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import ${package}.domain.${className}DO;
+import ${package}.domain.${className};
 import ${package}.domain.${className}Query;
-import ${package}.repository.${className}Dao;
+import ${package}.mapper.${className}Mapper;
 
-@Service("${classname}Service")
+@Service
 @Transactional(readOnly = true)
-public class ${className}Service{
+public class ${className}Service extends
+		ServiceImpl<${className}Mapper, ${className}>{
 
-	@Autowired
-	private ${className}Dao ${classname}Dao;
 	
-	public ${className}DO get(${pk.attrType} ${pk.attrname}){
-		return ${classname}Dao.get(${pk.attrname});
+	
+	public ${className} get(${pk.attrType} ${pk.attrNameLower}){
+		return baseMapper.get(${pk.attrNameLower});
 	}
 	
-	public List<${className}DO> list(${className}Query ${classname}Query){
-		return ${classname}Dao.list(${classname}Query);
-	}
-	
-	public PageInfo<${className}DO> page(${className}Query ${classname}Query){
-		PageHelper.startPage(${classname}Query.getPage(), ${classname}Query.getSize());
-        List<${className}DO> list = ${classname}Dao.list(${classname}Query);
-        return new PageInfo<${className}DO>(list);
+	public List<${className}> list(${className}Query ${classname}Query){
+		return baseMapper.list(${classname}Query);
 	}
 	
 	@Transactional
-	public void save(${className}DO ${classname}){
-		${classname}Dao.save(${classname});
+	public void save(${className} ${classname}){
+		baseMapper.save(${classname});
 	}
 	
 	@Transactional
-	public boolean update(${className}DO ${classname}){
-		return ${classname}Dao.update(${classname}) > 0 ? true : false;
+	public boolean update(${className} ${classname}){
+		return baseMapper.update(${classname}) > 0 ? true : false;
 	}
 	
 	@Transactional
-	public void delete(${pk.attrType} ${pk.attrname}){
-		${classname}Dao.delete(${pk.attrname});
+	public void delete(${pk.attrType} ${pk.attrNameLower}){
+		${classname}Dao.delete(${pk.attrNameLower});
 	}
 	
 }

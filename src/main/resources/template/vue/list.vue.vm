@@ -5,7 +5,7 @@
         <el-form :model="params" :inline="true">
           #foreach ($column in $columns)
           <el-form-item>
-            <el-input v-model="params.$column.attrname" placeholder="$column.attrname" style="width: 250px">$column.attrname</el-input>
+            <el-input v-model="params.$column.attrNameLower" placeholder="$column.attrNameLower" style="width: 250px">$column.attrNameLower</el-input>
           </el-form-item>
           #end
 
@@ -45,7 +45,7 @@
           pageNum:1,
           pageSize: 10,
           #foreach ($column in $columns)
-            $column.attrname:'',
+            $column.attrNameLower:'',
            #end 
 
         }

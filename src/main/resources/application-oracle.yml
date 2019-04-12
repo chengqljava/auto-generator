@@ -5,10 +5,10 @@ spring:
   application:
     name: code-gen
   datasource:
-    url: jdbc:mysql://localhost:3306/feihong?useUnicode=true&amp;characterEncoding=UTF-8
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:oracle:thin:@10.0.13.7:1521/HWSAFETY
+    username: DOUBLESAFE
+    password: DOUBLESAFE
+    driver-class-name: oracle.jdbc.driver.OracleDriver
     type: com.alibaba.druid.pool.DruidDataSource
   druid:
     initialSize: 5 
@@ -23,8 +23,8 @@ spring:
     testOnReturn: false
     poolPreparedStatements: false
     maxPoolPreparedStatementPerConnectionSize: 20
-    filters: stat,wall,log4j
+    filters: stat,log4j
     connectionProperties: 'druid.stat.mergeSql: true;druid.stat.slowSqlMillis: 5000'
  
-mybatis-plus:
-  mapper-locations: classpath:mapper/*.xml  
+mybatis:
+  mapper-locations: classpath:mapper/oracle/*.xml  

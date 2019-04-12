@@ -1,0 +1,28 @@
+package ${package}.repository;
+
+import java.util.List;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import ${package}.domain.${className};
+import ${package}.domain.${className}Query;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public interface ${className}Mapper extends BaseMapper<${className}>{
+	
+	void save(${className} ${classname});
+	
+	int update(${className} ${classname});
+	
+	int delete(${pk.attrType} ${pk.attrNameLower});
+	
+	${className} get(${pk.attrType} ${pk.attrNameLower});
+	
+	List<${className}> list(${className}Query ${classname}Query);
+}

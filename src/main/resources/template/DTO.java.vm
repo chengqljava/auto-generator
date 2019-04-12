@@ -10,25 +10,14 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 #if(${hasBigDecimal})
 import java.math.BigDecimal;
 #end
 
 
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
-@EqualsAndHashCode
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler",
-                                "fieldHandler" }, ignoreUnknown = true)
+@Data
 @ApiModel(description = "${comments}")
 public class ${className}DTO implements Serializable {
 
@@ -36,7 +25,7 @@ public class ${className}DTO implements Serializable {
 	
 #foreach ($column in $columns)
 	@ApiModelProperty(value = "$column.comments")
-	private $column.attrType $column.attrname;
+	private $column.attrType $column.attrNameLower;
 	
 #end
 

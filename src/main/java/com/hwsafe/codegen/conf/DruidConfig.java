@@ -1,17 +1,23 @@
-package com.chengql.codegen.conf;
+package com.hwsafe.codegen.conf;
 
-import org.springframework.context.annotation.Configuration;
-
-import com.alibaba.druid.pool.DruidDataSource;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
-
-import javax.sql.DataSource;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+
+import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.http.WebStatFilter;
+
 @Configuration
-public class DruidConfiguration {
+public class DruidConfig {
+
     @Value("${spring.datasource.url}")
     private String url;
 
@@ -99,7 +105,7 @@ public class DruidConfiguration {
         return datasource;
     }
 
-  /*  @Bean
+    @Bean
     public ServletRegistrationBean<StatViewServlet> statViewServlet(){
         ServletRegistrationBean<StatViewServlet> servletRegistrationBean = new ServletRegistrationBean<StatViewServlet>(new StatViewServlet(),"/druid/*");
         servletRegistrationBean.addInitParameter("allow","127.0.0.1");  //设置ip白名单
@@ -121,6 +127,5 @@ public class DruidConfiguration {
         //忽略过滤的形式
         filterRegistrationBean.addInitParameter("exclusions","*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
         return filterRegistrationBean;
-    }*/
-   
+    }
 }
